@@ -13,7 +13,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 @WebServlet("/login")
 public class login extends HttpServlet {
@@ -49,7 +48,7 @@ public class login extends HttpServlet {
 
             if (rs.next()) {
                 session.setAttribute("name", rs.getString("uname"));
-                dispatcher = request.getRequestDispatcher("index.jsp");
+                dispatcher = request.getRequestDispatcher("intropage.jsp");
             } else {
                 request.setAttribute("status", "failed");
                 dispatcher = request.getRequestDispatcher("login.jsp");
@@ -60,15 +59,6 @@ public class login extends HttpServlet {
             request.setAttribute("status", "error");
             dispatcher = request.getRequestDispatcher("login.jsp");
             dispatcher.forward(request, response); // Forward on error
-        } finally {
-            if (con != null) {
-                try {
-					con.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} // Ensure the connection is closed
-            }
-        }
+        } 
     }
 }

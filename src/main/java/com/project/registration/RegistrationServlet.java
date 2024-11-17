@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 @WebServlet("/register")
 public class RegistrationServlet extends HttpServlet {
@@ -73,7 +72,7 @@ public class RegistrationServlet extends HttpServlet {
             pst.setString(4, umobile);
 
             int rowCount = pst.executeUpdate();
-            dispatcher = request.getRequestDispatcher("registration.jsp");
+            dispatcher = request.getRequestDispatcher("login.jsp");
             if (rowCount > 0) {
                 request.setAttribute("status", "success");
             } else {
@@ -85,15 +84,6 @@ public class RegistrationServlet extends HttpServlet {
             request.setAttribute("status", "error");
             dispatcher = request.getRequestDispatcher("registration.jsp");
             dispatcher.forward(request, response); // Forward on error
-        } finally {
-            if (con != null) {
-                try {
-					con.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} // Ensure the connection is closed
-            }
         }
     }
 }
